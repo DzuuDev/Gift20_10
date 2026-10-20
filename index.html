@@ -6,6 +6,9 @@
   <meta name="theme-color" content="#fbf7f2">
   <meta name="description" content="Lời chúc mừng Ngày Phụ nữ Việt Nam 20/10.">
   <title>Chúc mừng ngày 20/10</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
   <style>
     :root {
       color-scheme: light;
@@ -68,6 +71,7 @@
     .date { margin: 0 0 14px; color: var(--rose); font: 600 10px/1.5 "Segoe UI", Arial, sans-serif; letter-spacing: .2em; text-transform: uppercase; }
     h1 { margin: 0; color: #514143; font-size: clamp(36px, 7vw, 54px); font-weight: 400; line-height: 1.1; letter-spacing: -.035em; }
     h1 span {
+      display: inline-block; padding: 0 .16em .1em .05em; margin: 0 -.16em -.1em -.05em; /* chống bị cắt chữ nghiêng */
       color: var(--rose); font-style: italic;
       background: linear-gradient(100deg, #a95768 20%, #d98e9b 42%, #f0c9a4 50%, #d98e9b 58%, #a95768 80%) 0 0 / 250% 100%;
       -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
@@ -77,7 +81,7 @@
     .intro { margin: 14px 0 0; color: var(--muted); font: 14px/1.65 "Segoe UI", Arial, sans-serif; }
 
     /* ---------- Phong bì ---------- */
-    .envelope-stage { position: relative; display: grid; width: 100%; height: 280px; place-items: center; perspective: 1000px; }
+    .envelope-stage { position: relative; display: grid; width: 100%; height: 280px; place-items: center; perspective: 1000px; transition: height .8s cubic-bezier(.16,1,.3,1); }
     .envelope-stage::before {
       position: absolute; top: 50%; left: 50%; width: 360px; height: 260px; content: ""; pointer-events: none;
       transform: translate(-50%, -50%); border-radius: 50%;
@@ -120,7 +124,7 @@
       border: 1px solid #e8d9cc; border-radius: 10px; background: linear-gradient(145deg,#fffefa,#fffaf2);
       box-shadow: 0 16px 42px #5c424021; transition: transform .8s cubic-bezier(.16,1,.3,1), opacity .4s, visibility .4s;
     }
-    .open + .letter { visibility: visible; opacity: 1; transform: translate(-50%,-67%) scale(1); transition-delay: .15s; }
+    .open + .letter { visibility: visible; opacity: 1; transform: translate(-50%,-54%) scale(1); transition-delay: .15s; }
     .letter h2 { margin: 0 0 13px; color: var(--rose); font-size: 22px; font-weight: 400; }
     .letter p { margin: 0; color: #554947; font-size: 15px; line-height: 1.75; }
 
@@ -128,7 +132,20 @@
     .w { display: inline-block; opacity: 0; transform: translateY(9px); filter: blur(4px); transition: opacity .6s ease, transform .6s ease, filter .6s ease; }
     .letter h2 { opacity: 0; transform: translateY(8px); transition: opacity .6s ease, transform .6s ease; }
     .open + .letter h2 { opacity: 1; transform: none; transition-delay: .55s; }
-    .open + .letter .w { opacity: 1; transform: none; filter: none; transition-delay: calc(.85s + var(--i) * 70ms); }
+    .open + .letter .w { opacity: 1; transform: none; filter: none; transition-delay: calc(.85s + var(--i) * 45ms); }
+    .letter .hw { color: var(--rose); font-weight: 600; }
+    .open + .letter .hw { animation: heartbeat 1.8s ease-in-out calc(var(--i) * 45ms + 1.7s) infinite; }
+
+    /* chữ ký: nét gạch kéo ra, tên hiện dần từ trái sang như đang viết tay */
+    .sign { display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin-top: 16px; }
+    .sign-line { width: 36px; height: 1px; background: linear-gradient(90deg, transparent, var(--rose)); opacity: .7; transform: scaleX(0); transform-origin: right; transition: transform .8s cubic-bezier(.16,1,.3,1); }
+    .sign-name {
+      display: inline-block; padding: 0 4px 2px 0; color: var(--rose); letter-spacing: .01em; transform: rotate(-3deg); transform-origin: right center;
+      font: 600 27px/1.1 "Dancing Script", "Segoe Script", "Snell Roundhand", "Brush Script MT", cursive;
+      clip-path: inset(-15% 100% -25% 0); transition: clip-path 1.4s cubic-bezier(.4,0,.2,1);
+    }
+    .open + .letter .sign-line { transform: scaleX(1); transition-delay: calc(.85s + var(--n) * 45ms + .3s); }
+    .open + .letter .sign-name { clip-path: inset(-15% -15% -25% 0); transition-delay: calc(.85s + var(--n) * 45ms + .6s); }
     .letter .heart {
       display: block; margin-top: 14px; color: var(--rose); font-size: 17px; opacity: 0; scale: .2;
       transition: opacity .5s, scale .7s cubic-bezier(.34,1.8,.5,1);
@@ -180,7 +197,7 @@
       .envelope { width: min(78vw, 300px); height: 180px; }
       .letter { min-height: 202px; padding: 24px 19px; }
       .letter p { font-size: 14px; line-height: 1.7; }
-      .open + .letter { transform: translate(-50%,-65%) scale(1); }
+      .open + .letter { transform: translate(-50%,-54%) scale(1); }
       .actions { margin-top: -10px; }
     }
     /* Hiệu ứng luôn chạy, kể cả khi thiết bị bật "giảm chuyển động".
@@ -197,15 +214,16 @@
     <section class="card" id="card" aria-label="Thiệp chúc mừng ngày 20 tháng 10">
       <p class="date rv" style="--d:.25s">Ngày Phụ nữ Việt Nam · 20 tháng 10</p>
       <h1 class="rv" style="--d:.45s">Chúc mừng<br><span>ngày 20/10</span></h1>
-      <p class="intro rv" style="--d:.7s">Gửi bạn một lời chúc nhỏ cho hôm nay.</p>
+      <p class="intro rv" style="--d:.7s">Gửi chị em một lời chúc nhỏ cho hôm nay.</p>
       <div class="envelope-stage rv" id="stage" style="--d:.9s">
         <div class="envelope" id="envelope" aria-hidden="true">
           <div class="back"></div><div class="flap"></div><div class="side"></div><div class="side right"></div><div class="front"></div><div class="seal">✿</div>
         </div>
         <article class="letter" aria-live="polite">
           <h2>Gửi <span id="recipient">bạn</span>,</h2>
-          <p id="message">Chúc em 20/10 thật hạnh phúc, mọi việc như ý, vạn sự như mơ, luôn luôn tích cực, ngày càng xinh đẹp, tươi tắn</p>
+          <p id="message">Chúc chị em một ngày 20/10 thật vui và bình yên. Mong những dự định đang ấp ủ sớm thành hiện thực. Hôm nay cứ thong thả, gác lại lo toan và làm những điều khiến mình vui nhé!</p>
           <span class="heart" id="heart">♡</span>
+          <div class="sign" aria-label="Thanh Hà"><span class="sign-line" aria-hidden="true"></span><span class="sign-name" aria-hidden="true">Thanh Hà</span></div>
         </article>
       </div>
       <div class="actions rv" style="--d:1.1s"><button class="open-button" id="openButton" type="button" aria-expanded="false">Mở thiệp</button></div>
@@ -217,7 +235,7 @@
     const rand = (a, b) => a + Math.random() * (b - a);
 
     /* ---- Tên người nhận ---- */
-    const defaultRecipient = 'bạn';
+    const defaultRecipient = 'chị em';
     const recipient = new URLSearchParams(location.search).get('to');
     document.getElementById('recipient').textContent = (recipient || defaultRecipient).trim().slice(0, 45) || defaultRecipient;
 
@@ -228,14 +246,14 @@
     message.textContent = '';
     words.forEach((word, i) => {
       const s = document.createElement('span');
-      s.className = 'w';
+      s.className = (word === '<3' || word.includes('❤')) ? 'w hw' : 'w';
       s.setAttribute('aria-hidden', 'true');
       s.style.setProperty('--i', i);
       s.textContent = word;
       message.appendChild(s);
       if (i < words.length - 1) message.appendChild(document.createTextNode(' '));
     });
-    document.getElementById('heart').style.setProperty('--n', words.length);
+    document.querySelector('.letter').style.setProperty('--n', words.length);
 
     /* ---- Cánh hoa rơi nền (nhiều kích thước, màu, xoay 3D) ---- */
     const petalColors = ['#cf9298', '#dba5a8', '#e8c9c5', '#c7808c', '#f0cfc9'];
@@ -379,9 +397,17 @@
     const stage = document.getElementById('stage');
     const openButton = document.getElementById('openButton');
     const letterEl = document.querySelector('.letter');
+    // lời chúc dài hơn thì khung mở rộng ra cho vừa lá thư
+    function fitStage() {
+      const base = innerWidth <= 520 ? 244 : 280;
+      const isOpen = envelope.classList.contains('open');
+      stage.style.height = isOpen ? Math.max(base, letterEl.offsetHeight + 44) + 'px' : '';
+    }
+    addEventListener('resize', fitStage);
     function toggle() {
       const isOpen = envelope.classList.toggle('open');
       stage.classList.toggle('is-open', isOpen);
+      fitStage();
       openButton.setAttribute('aria-expanded', String(isOpen));
       openButton.textContent = isOpen ? 'Đóng thiệp' : 'Mở thiệp';
       if (isOpen) {
